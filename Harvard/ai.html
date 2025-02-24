@@ -53,46 +53,48 @@
         }
 
         .main-title {
-            font-size: 2.2em;
+            /* 使用 clamp() 實現動態字體大小 */
+            font-size: clamp(20px, 4.5vw, 42px); /* 最小24px > 動態4.5vw > 最大42px */
             color: #2c3e50;
-            margin: 0; /* 移除原有下边距 */
-            /* 新增垂直居中修正 */
+            margin: 0;
             line-height: 1.2;
             display: flex;
             align-items: center;
             justify-content: center;
-            height: 100%; /* 撑满父容器 */
-        }
-
-        @media (max-width: 768px) {
-            .title-cell {
-                min-height: 120px; /* 移动端调整 */
-                padding: 15px;
-            }
+            height: 100%;
+          
+            /* 增加字距調整 */
+            letter-spacing: -0.5px;
+            word-spacing: 2px;
+            text-wrap: nowrap; /* 防止文字換行 */
         }
 
         .sub-title {
-            font-size: 1.2em;
-            color: #7f8c8d;
-            font-style: italic;
+            font-size: clamp(14px, 1.8vw, 20px); /* 按主標題比例縮放 */
+            margin-top: 0.8em; /* 使用相對單位 */
         }
 
         @media (max-width: 768px) {
-            .main-table {
-                width: 95%;
+            .main-title {
+                font-size: clamp(20px, 6vw, 28px); /* 手機端加大vw比例 */
+                text-wrap: balance; /* 自動平衡文字排列 */
             }
           
+            .title-cell {
+                min-height: 100px; /* 降低最小高度 */
+            }
+        }
+
+        /* 超小屏幕特殊處理 */
+        @media (max-width: 480px) {
             .main-title {
-                font-size: 1.8em;
+                font-size: clamp(18px, 7vw, 24px);
+                flex-direction: column; /* 文字垂直排列 */
+                gap: 5px;
             }
           
             .sub-title {
-                font-size: 1em;
-            }
-          
-            .logo-cell {
-                width: 80px;
-                padding: 10px;
+                font-size: clamp(12px, 3.5vw, 16px);
             }
         }
 	</style>
