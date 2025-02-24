@@ -11,74 +11,84 @@
         }
 
         body {
-            font-family: 'Microsoft JhengHei', Arial, sans-serif;
-            min-height: 100vh;
-            background-color: #FFFFFF;
-        }
-
-        /* 標題列容器 */
-        .header-container {
-            position: fixed;
-            top: 5%;
-            left: 3%;
-            z-index: 999;
             display: flex;
+            justify-content: center;
             align-items: center;
+            min-height: 100vh;
+            font-family: 'Microsoft JhengHei', Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+
+        .main-table {
             width: 90%;
-            max-width: 1200px;
-        }
-
-        /* Logo 樣式 */
-        .logo {
-            width: 8vw;
-            min-width: 60px;
-            max-width: 100px;
-            margin-right: 3%;
-        }
-
-        /* 網站名稱樣式 */
-        .site-title {
-            font-size: calc(18px + 1.2vw);
-            color: #2c3e50;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
-            white-space: nowrap;
-        }
-
-        /* 主要內容區域 */
-        .content {
-            width: 90%;
-            margin: 18vh auto 0;
-            padding: 5%;
+            max-width: 1000px;
+            border: 1px solid #000;
+            border-collapse: collapse;
             background-color: white;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
         }
 
-        /* 響應式調整 */
+        .logo-cell {
+            width: 120px;
+            padding: 15px;
+            border-right: 1px solid #000;
+            vertical-align: middle;
+        }
+
+        .logo {
+            width: 100%;
+            height: auto;
+            max-width: 100px;
+        }
+
+        .title-cell {
+            padding: 25px;
+            text-align: center;
+            border-left: 1px solid #000;
+        }
+
+        .main-title {
+            font-size: 2.2em;
+            color: #2c3e50;
+            margin-bottom: 8px;
+        }
+
+        .sub-title {
+            font-size: 1.2em;
+            color: #7f8c8d;
+            font-style: italic;
+        }
+
         @media (max-width: 768px) {
-            .header-container {
-                top: 3%;
-                left: 5%;
+            .main-table {
                 width: 95%;
             }
           
-            .site-title {
-                font-size: calc(16px + 1vw);
-                white-space: normal;
+            .main-title {
+                font-size: 1.8em;
             }
           
-            .content {
-                margin-top: 22vh;
-                padding: 8%;
+            .sub-title {
+                font-size: 1em;
+            }
+          
+            .logo-cell {
+                width: 80px;
+                padding: 10px;
             }
         }
 	</style>
 </head>
 <body>
-<header class="header-container"><img alt="哈佛大樓 Logo" class="logo" src="https://i.meee.com.tw/LHPFKHJ.jpg" />
-<h1 class="site-title">哈佛大樓 AI 客服中心</h1>
-</header>
-<p> ...</p>
+<table class="main-table">
+	<tbody>
+		<tr>
+			<td class="logo-cell"><img alt="哈佛大樓 Logo" class="logo" src="https://i.meee.com.tw/LHPFKHJ.jpg" /></td>
+			<td class="title-cell">
+			<div class="main-title">哈佛大樓 AI 客服中心</div>
+
+			<div class="sub-title">測試中...</div>
+
 <!-- AI -->
 <iframe
  src="https://udify.app/chatbot/ZGE47RtleOPXjcK9"
@@ -87,5 +97,9 @@
  allow="microphone">
 </iframe>
 <!-- AI -->
+			</td>
+		</tr>
+	</tbody>
+</table>
 </body>
 </html>
