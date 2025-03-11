@@ -1,13 +1,128 @@
-<html>
+<!DOCTYPE html>
+<html lang="zh-Hant">
 <head>
-<!-- <meta content="width=device-width, initial-scale=1.0" name="viewport" /> -->
-<title>哈佛大樓 AI 智能助理</title>
+	<meta charset="UTF-8" />
+	<meta content="width=device-width, initial-scale=1.0" name="viewport" />
+	<title>哈佛大樓 AI 智能助理</title>
+	<style type="text/css">* {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            font-family: 'Microsoft JhengHei', Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+
+        .main-table {
+            width: 100%;
+            max-width: 1000px;
+            border: 1px solid #000;
+            border-collapse: collapse;
+            background-color: white;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+
+        .logo-cell {
+            width: 120px;
+            padding: 15px;
+            border-right: 1px solid #000;
+            vertical-align: middle;
+        }
+
+        .logo {
+            width: 100%;
+            height: auto;
+            max-width: 100px;
+        }
+
+        .title-cell {
+            padding: 25px;
+            text-align: center;
+            border-left: 1px solid #000;
+            /* 新增垂直居中设置 */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            min-height: 150px; /* 根据内容高度调整 */
+        }
+
+        .main-title {
+            /* 使用 clamp() 實現動態字體大小 */
+            font-size: clamp(14px, 4.5vw, 26px); /* 最小24px > 動態4.5vw > 最大42px */
+            color: #2c3e50;
+            margin: 0;
+            line-height: 1.2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+	    /* 新增垂直居中修正 */
+            line-height: 1.2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%; /* 撑满父容器 */
+            /* 增加字距調整 */
+            letter-spacing: -0.5px;
+            word-spacing: 2px;
+            text-wrap: nowrap; /* 防止文字換行 */
+        }
+
+        .sub-title {
+            font-size: clamp(12px, 1.8vw, 20px); /* 按主標題比例縮放 */
+            margin-top: 0.8em; /* 使用相對單位 */
+        }
+
+        @media (max-width: 768px) {
+            .main-title {
+                font-size: clamp(14px, 6vw, 26px); /* 手機端加大vw比例 */
+                text-wrap: balance; /* 自動平衡文字排列 */
+            }
+          
+            .title-cell {
+                min-height: 100px; /* 降低最小高度 */
+            }
+        }
+
+        /* 超小屏幕特殊處理 */
+        @media (max-width: 480px) {
+            .main-title {
+                font-size: clamp(14px, 7vw, 22px);
+                <!-- flex-direction: column; /* 文字垂直排列 */ -->
+                gap: 5px;
+            }
+          
+            .sub-title {
+                font-size: clamp(12px, 3.5vw, 16px);
+            }
+        }
+	</style>
 </head>
 <body>
-<p>
-<iframe allow="microphone" frameborder="0" src="https://udify.app/chat/mfrY8f637LVHLCMu" style="width: 100%; height: 100%; min-height: 700px"></iframe></p>
-<p>高雄大學城哈佛大樓管理委員會</p>
-<p>&copy; 2025 Kaohsiung Harvard Building Management Committee. All Rights Reserved. Design by PEI CHIANG.</p>
-
+<table class="main-table">
+	<tbody>
+		<tr>
+			<td class="title-cell">
+			<!-- <div class="main-title"><img alt="哈佛大樓 Logo" class="logo" src="https://i.meee.com.tw/LHPFKHJ.jpg" style="width: 89px; background-color: rgb(255, 255, 255);" />
+			哈佛大樓 AI 客服助理</div>  -->
+			<!-- <div class="sub-title">2/28 測試中...</div> -->
+			<!-- AI -->
+			<iframe
+			 src="https://udify.app/chat/mfrY8f637LVHLCMu"
+			 style="width: 100%; height: 100%; min-height: 700px"
+			 frameborder="0"
+			 allow="microphone">
+			</iframe>
+			<!-- AI -->
+			</td>
+		</tr>
+	</tbody>
+</table>
 </body>
 </html>
