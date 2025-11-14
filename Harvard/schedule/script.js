@@ -31,6 +31,7 @@ function loadMaintenancePlans() {
             // Re-render with data
             renderCalendar();
             highlightToday();
+            renderMonthlyPlans();
         }
     };
     xhr.onerror = function() {
@@ -112,9 +113,43 @@ function renderDailyPlans() {
     // Sort by time
     dayPlans.sort((a, b) => a.time.localeCompare(b.time));
 
-    dailyPlansList.innerHTML = dayPlans.map(plan => 
-        `<div class="plan-item" style="border-left-color: ${plan.color};">
-            <time>${plan.time}</time> - ${plan.description}
+    dailyPlansList.innerHTML = dayPlans.map(plan =>
+        `<div class="plan-item" style="background-color: ${plan.color};">
+            <time>${plan.time || '未指定時間'}</time> - ${plan.description}
+        </div>`
+    ).join('');
+}
+
+function renderMonthlyPlans() {
+    const monthlyPlansList = document.getElementById('monthly-plans-list');
+    const year = currentDate.getFullYear();
+    const month = currentDate.getMonth() + 1;
+    const monthStr = String(month).padStart(2, '0');
+    const monthPrefix = `${year}-${monthStr}`;
+
+    if (maintenancePlans.length === 0) {
+        monthlyPlansList.innerHTML = '<p>本月無保養計畫。</p>';
+        return;
+    }
+
+    const monthPlans = maintenancePlans.filter(plan => plan.date.startsWith(monthPrefix));
+    if (monthPlans.length === 0) {
+        monthlyPlansList.innerHTML = '<p>本月無保養計畫。</p>';
+        return;
+    }
+
+    // Sort by date and time
+    monthPlans.sort((a, b) => {
+        if (a.date !== b.date) {
+            return a.date.localeCompare(b.date);
+        }
+        return (a.time || '').localeCompare(b.time || '');
+    });
+
+    monthlyPlansList.innerHTML = monthPlans.map(plan =>
+        `<div class="monthly-plan-item" style="background-color: ${plan.color};">
+            <div class="date">${plan.date}</div>
+            <time>${plan.time || '未指定時間'}</time> - ${plan.description}
         </div>`
     ).join('');
 }
@@ -137,6 +172,7 @@ function changeMonth(direction) {
     renderCalendar();
     // Re-highlight today if in current month
     highlightToday();
+    renderMonthlyPlans();
 }
 
 // Event listeners

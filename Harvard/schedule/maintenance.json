@@ -1,30 +1,93 @@
 [
   {
     "id": "plan_1",
-    "date": "2025-11-13",
-    "time": "10:00",
-    "description": "引擎油更換",
-    "color": "#007bff"
+    "date": "2025-10-08",
+    "time": "",
+    "description": "【水立方】水景噴灌保養（第一次）",
+    "color": "#78dcfa"
+  },
+  {
+    "id": "plan_1",
+    "date": "2025-10-22",
+    "time": "",
+    "description": "【水立方】水景噴灌保養（第二次）",
+    "color": "#78dcfa"
   },
   {
     "id": "plan_2",
-    "date": "2025-11-13",
+    "date": "2025-10-01",
     "time": "",
-    "description": "輪胎檢查123",
-    "color": "#28a745"
+    "description": "【永大】電梯保養",
+    "color": "#FFFF99"
   },
   {
     "id": "plan_3",
-    "date": "2025-11-20",
-    "time": "09:00",
-    "description": "煞車系統保養",
-    "color": "#dc3545"
+    "date": "2025-10-07",
+    "time": "",
+    "description": "【國霖】消防機電保養（第一次）",
+    "color": "#ffc2e5"
+  },
+  {
+    "id": "plan_3",
+    "date": "2025-10-21",
+    "time": "",
+    "description": "【國霖】消防機電保養（第二次）",
+    "color": "#ffc2e5"
   },
   {
     "id": "plan_4",
-    "date": "2025-10-15",
-    "time": "11:00",
-    "description": "空調濾清器清潔",
-    "color": "#ffc107"
+    "date": "2025-10-16",
+    "time": "",
+    "description": "【東錥】機械車位保養",
+    "color": "#c7c8ca"
+  },
+  {
+    "id": "plan_5",
+    "date": "2025-10-09",
+    "time": "",
+    "description": "【宗亞】門禁監控保養",
+    "color": "#ffdf8b"
+  },
+  {
+    "id": "plan_6",
+    "date": "2025-10-27",
+    "time": "",
+    "description": "【緣樹】園藝保養（修建喬木、固定鋼索）",
+    "color": "#dcf8c6"
+  },
+  {
+    "id": "plan_6",
+    "date": "2025-10-28",
+    "time": "",
+    "description": "【緣樹】園藝保養（修建喬木、固定鋼索）",
+    "color": "#dcf8c6"
+  },
+  {
+    "id": "plan_3",
+    "date": "2025-11-04",
+    "time": "",
+    "description": "【國霖】消防機電保養（第一次）",
+    "color": "#ffc2e5"
+  },
+  {
+    "id": "plan_3",
+    "date": "2025-11-18",
+    "time": "",
+    "description": "【國霖】消防機電保養（第二次）",
+    "color": "#ffc2e5"
+  },
+  {
+    "id": "plan_2",
+    "date": "2025-11-04",
+    "time": "",
+    "description": "【永大】電梯保養",
+    "color": "#FFFF99"
+  },
+  {
+    "id": "plan_4",
+    "date": "2025-11-13",
+    "time": "",
+    "description": "【東錥】機械車位保養",
+    "color": "#c7c8ca"
   }
 ]

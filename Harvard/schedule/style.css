@@ -21,6 +21,12 @@ main {
     margin: 0 auto;
 }
 
+#left-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
 #calendar-container {
     background: white;
     border-radius: 8px;
@@ -110,6 +116,51 @@ main {
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
+#monthly-plans-container {
+    background: white;
+    border-radius: 8px;
+    padding: 1rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin-top: 1rem;
+}
+
+#right-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+#monthly-plans-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.monthly-plan-item {
+    padding: 0.75rem;
+    border-radius: 4px;
+    border-left: 4px solid;
+    background-color: #f8f9fa;
+}
+
+/* 新增：狀態底色 */
+.monthly-plan-item.normal {
+    background-color: #d4edda; /* 淺綠 - 正常 */
+}
+
+.monthly-plan-item.soon-due {
+    background-color: #fff3cd; /* 淺黃 - 即將到期 */
+}
+
+.monthly-plan-item.overdue {
+    background-color: #f8d7da; /* 淺紅 - 已過期 */
+}
+
+.monthly-plan-item time {
+    font-weight: bold;
+    color: #666;
+}
+
 #daily-plans-container h2 {
     margin-top: 0;
 }
@@ -147,13 +198,18 @@ footer {
         gap: 1rem;
     }
     
-    #calendar-container {
+    #left-panel {
         flex: 1;
-        margin-bottom: 0;
+        gap: 1rem;
     }
     
-    #daily-plans-container {
+    #right-panel {
         flex: 1;
+        gap: 1rem;
+    }
+    
+    #monthly-plans-container {
+        margin-top: 0;
     }
     
     .calendar-day {
