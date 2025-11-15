@@ -1,0 +1,22 @@
+{
+  "name": "repair-records-app",
+  "version": "1.0.0",
+  "description": "靜態修繕修護紀錄網頁應用，使用 Node.js 靜態伺服器。",
+  "main": "server/server.js",
+  "scripts": {
+    "start": "node server/server.js",
+    "dev": "server\\start_server.bat",
+    "stop": "server\\stop_server.bat",
+    "test": "echo '測試伺服器：npm run dev 啟動，npm run stop 停止。'"
+  },
+  "author": "Kilo Code",
+  "license": "MIT",
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "repository": {
+    "type": "local"
+  },
+  "keywords": ["repair", "records", "static", "web", "node"],
+  "devDependencies": {}
+}
