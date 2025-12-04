@@ -89,5 +89,40 @@
     "time": "",
     "description": "【東錥】機械車位保養",
     "color": "#c7c8ca"
+  },
+  {
+    "id": "plan_5",
+    "date": "2025-11-07",
+    "time": "",
+    "description": "【宗亞】門禁監控保養",
+    "color": "#ffdf8b"
+  },
+  {
+    "id": "plan_1",
+    "date": "2025-11-12",
+    "time": "",
+    "description": "【水立方】水景噴灌保養（第一次）",
+    "color": "#78dcfa"
+  },
+  {
+    "id": "plan_1",
+    "date": "2025-11-26",
+    "time": "",
+    "description": "【水立方】水景噴灌保養（第二次）",
+    "color": "#78dcfa"
+  },
+  {
+    "id": "plan_7",
+    "date": "2025-11-27",
+    "time": "",
+    "description": "【特清】清潔保養",
+    "color": "#79FF79"
+  },
+  {
+    "id": "plan_7",
+    "date": "2025-11-28",
+    "time": "",
+    "description": "【特清】清潔保養",
+    "color": "#79FF79"
   }
 ]
