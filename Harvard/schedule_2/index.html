@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>大學城哈佛-保養月曆</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>大學城哈佛-保養月曆</h1>
+    </header>
+    <main>
+        <div id="left-panel">
+        <section id="calendar-container">
+            <div class="calendar-header">
+                <button id="prevMonth">上個月</button>
+                <h2 id="currentMonthYear"></h2>
+                <button id="nextMonth">下個月</button>
+            </div>
+            <div class="calendar-grid">
+                <div class="day-name">日</div>
+                <div class="day-name">一</div>
+                <div class="day-name">二</div>
+                <div class="day-name">三</div>
+                <div class="day-name">四</div>
+                <div class="day-name">五</div>
+                <div class="day-name">六</div>
+                <!-- Calendar days will be inserted here by JavaScript -->
+            </div>
+        </section>
+        </div>
+    <div id="right-panel">
+        <section id="daily-plans-container">
+            <h2><span id="selectedDate"></span> 的保養計畫</h2>
+            <div id="daily-plans-list">
+                <!-- Daily plans will be inserted here by JavaScript -->
+            </div>
+        </section>
+        <section id="monthly-plans-container">
+            <h2>本月保養計畫</h2>
+            <div id="monthly-plans-list">
+                <!-- Monthly plans will be inserted here by JavaScript -->
+            </div>
+        </section>
+    </div>
+    </main>
+    <footer>
+        <p>&copy; 2025 高雄大學城哈佛大樓</p>
+    </footer>
+    <script src="script.js"></script>
+</body>
+</html>
