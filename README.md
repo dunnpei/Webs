@@ -4,7 +4,7 @@
 https://dunnpei.github.io/Webs/Harvard/A.html
 
 ## 保養記錄
-https://dunnpei.github.io/Webs/Harvard/schedule/index.html
+https://dunnpei.github.io/Webs/Harvard/schedule_2/index.html
 
 ## 修繕記錄
 https://dunnpei.github.io/Webs/Harvard/repair_2/index.html
