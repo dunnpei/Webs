@@ -1,0 +1,50 @@
+[
+  {
+    "year": 2024,
+    "plans": [
+      {
+        "id": "p2024-001",
+        "date": "2024-03-15",
+        "title": "屋頂防水層修補",
+        "status": "Completed",
+        "details": "詳細修繕內容：移除舊防水層、施作新聚合物塗料、驗收無滲漏。施工人員：張工程師團隊，時間表：3/15-3/20。維護建議：每年檢查一次。",
+        "amount": 85000,
+        "photos": ["https://i.meee.com.tw/VBDH5wa.jpg"],
+        "visited": true
+      },
+      {
+        "id": "p2024-002",
+        "date": "2024-08-20",
+        "title": "電梯門軌潤滑與調整",
+        "status": "Incomplete",
+        "details": "進一步檢測：門軌磨損嚴重，需更換零件。預估完工日期：9/10。後續維護：每季潤滑一次。",
+        "amount": 25000,
+        "visited": false
+      }
+    ]
+  },
+  {
+    "year": 2025,
+    "plans": [
+      {
+        "id": "p2025-001",
+        "date": "2025-03-01",
+        "title": "外牆清潔與油漆修補",
+        "status": "Completed",
+        "details": "詳細修繕內容與步驟說明，包含施工區域（東側外牆）、材料規格（環保油漆）、施工人員與時間表（3/1-3/5）。驗收結果：無色差。維護建議：每兩年粉刷一次。",
+        "amount": 45000,
+        "visited": false
+      },
+      {
+        "id": "p2025-002",
+        "date": "2025-09-12",
+        "title": "水管漏水處理",
+        "status": "Incomplete",
+        "details": "進一步的檢測、材料清單（PVC管材）、預估完工日期（10/1）與後續維護建議（安裝感測器）。驗收結果：待定。",
+        "amount": 12000,
+        "photos": ["https://i.meee.com.tw/VBDH5wa.jpg"],
+        "visited": true
+      }
+    ]
+  }
+]

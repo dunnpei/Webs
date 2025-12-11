@@ -1,0 +1,63 @@
+# 資料來源描述 (Google Sheets CSV 轉換為 JSON 結構)
+
+## 整體結構 (前端轉換後)
+- 頂層為一個陣列 (Array)，每個元素代表一個年度的修繕紀錄物件，由 CSV 扁平資料前端分組產生。
+- 每個年度物件包含該年度的年份及修繕計畫列表。
+- 支援多年度資料，按 year 排序顯示。
+- 前端渲染時，按 year 分組呈現，並在每個年度內按 date 由早到晚排序計畫。
+
+## 年度物件 (Year Object)
+- **year** (required, number): 年度數字，例如 2025。
+- **plans** (required, array): 該年度的修繕計畫陣列，每個元素為計畫物件。
+
+## 計畫物件 (Plan Object)
+- **id** (required, string): 唯一識別碼，例如 "p2025-001"。用於追蹤展開狀態及瀏覽記錄。
+- **date** (required, string): 修繕日期，格式 YYYY-MM-DD，例如 "2025-03-01"。
+- **title** (required, string): 修繕概要標題，例如 "外牆清潔與油漆修補"。
+- **status** (required, string): 完成狀態，可能值包括 "Completed" (已完成)、"Incomplete" (未完成)等。支援顏色區分。
+- **details** (optional, string): 詳細修繕內容，包括步驟、材料、驗收結果、維護建議等。
+- **amount** (optional, number): 修繕金額，例如 45000。展開時顯示。
+- **visited** (optional, boolean, default: false): 使用者是否已瀏覽過該筆資料。用於視覺標記 (e.g., 陰影或圖示)。
+
+## CSV 來源結構 (Google Sheets)
+- 第一列為標頭：Year, ID, Date, Title, Status, Details, Amount, Photos (逗號分隔 URL 陣列)。
+- 後續行為扁平計畫資料，每行一筆，按 Year 欄位前端分組。
+- Photos 欄位：逗號分隔多個 URL 字串，例如 "url1.jpg,url2.jpg"。
+
+## 擴充與容錯處理
+- 前端應支援額外自訂欄位 (e.g., "contractor": string)，若資料中存在則展開顯示。
+- 若 CSV 載入失敗或格式錯誤，顯示錯誤訊息並提供重新載入按鈕。
+- 缺失可選欄位時，使用預設值或隱藏對應 UI 元素。
+- 資料驗證：date 格式檢查、amount 非負數等，無效值顯示警告。
+
+## 範例片段 (前端轉換後 JSON)
+```
+[
+  {
+    "year": 2025,
+    "plans": [
+      {
+        "id": "p2025-001",
+        "date": "2025-03-01",
+        "title": "外牆清潔與油漆修補",
+        "status": "Completed",
+        "details": "詳細修繕內容...",
+        "amount": 45000,
+        "photos": ["url1.jpg"],
+        "visited": false
+      }
+    ]
+  }
+]
+```
+
+## CSV 範例片段 (Google Sheets)
+```
+Year,ID,Date,Title,Status,Details,Amount,Photos
+2024,p2024-001,2024-03-15,屋頂防水層修補,Completed,詳細修繕內容...,85000,"https://i.meee.com.tw/VBDH5wa.jpg"
+2024,p2024-002,2024-08-20,電梯門軌潤滑與調整,Incomplete,進一步檢測...,25000,
+2025,p2025-001,2025-03-01,外牆清潔與油漆修補,Completed,詳細修繕內容...,45000,
+2025,p2025-002,2025-09-12,水管漏水處理,Incomplete,進一步的檢測...,12000,"https://i.meee.com.tw/VBDH5wa.jpg"
+```
+
+此 schema 設計為模組化，便於後續擴充新年度或欄位。修改 Sheets 後，前端重新載入頁面即可套用變更。CSV 匯出 URL 需公開為「任何人皆可檢視」以避免 CORS 錯誤。
