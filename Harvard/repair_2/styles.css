@@ -169,7 +169,7 @@ main {
 }
 
 .plan-card.visited::after {
-  content: '展開詳細';
+  content: '點擊詳細';
   position: absolute;
   top: var(--spacing-sm);
   right: var(--spacing-sm);

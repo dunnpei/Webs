@@ -218,9 +218,25 @@ function initApp() {
     bindPlanEvents() {
       const cards = document.querySelectorAll('.plan-card');
       cards.forEach(card => {
-        // 點擊展開
+        const summary = card.querySelector('summary');
+
+        // 點擊 summary：防止原生行為，統一自訂展開
+        if (summary) {
+          summary.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            toggleCard(card);
+          });
+        }
+
+        // 點擊卡片其他區域：展開
         card.addEventListener('click', (e) => {
-          if (e.target.closest('summary')) return; // 避免 summary 預設行為衝突
+          if (e.target.closest('summary')) return; // 由 summary 事件處理
+          toggleCard(card);
+        });
+
+        // 共用展開函數
+        function toggleCard(card) {
           const isExpanded = card.hasAttribute('open');
           if (isExpanded) {
             card.removeAttribute('open');
@@ -232,7 +248,7 @@ function initApp() {
             dataModule.markVisited(card.dataset.id);
             card.classList.add('visited');
           }
-        });
+        }
 
         // 鍵盤操作
         card.addEventListener('keydown', (e) => {
@@ -240,7 +256,7 @@ function initApp() {
             case 'Enter':
             case ' ':
               e.preventDefault();
-              card.click();
+              toggleCard(card);
               break;
             case 'Escape':
               if (card.hasAttribute('open')) {
