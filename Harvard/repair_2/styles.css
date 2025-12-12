@@ -164,7 +164,7 @@ main {
 }
 
 .plan-card.visited {
-  opacity: 0.8;
+  /* opacity: 0.8; */
   background: #f8f9fa;
 }
 
@@ -338,4 +338,5 @@ main {
 
 .photos img:hover {
   transform: scale(1.02);
+
 }
