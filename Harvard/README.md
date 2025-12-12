@@ -1,7 +1,11 @@
-# 網頁地址
+# 高雄大學城哈佛大樓
+
+## AI助理
 https://dunnpei.github.io/Webs/Harvard/A.html
+https://dunnpei.github.io/Webs/Harvard/A2.html
 
-https://dunnpei.github.io/Webs/Harvard/schedule/index.html
+## 保養記錄
+https://dunnpei.github.io/Webs/Harvard/schedule_2/index.html
 
-## 專案概述
-這是一個靜態網頁應用。
+## 修繕記錄
+https://dunnpei.github.io/Webs/Harvard/repair_2/index.html
