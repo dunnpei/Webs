@@ -174,7 +174,7 @@ main {
   top: var(--spacing-sm);
   right: var(--spacing-sm);
   /* color: var(--success-color); */
-  color: #007bff;
+  color: #FFC000;
   font-size: 0.8rem;
   font-weight: normal;
 }
@@ -341,4 +341,5 @@ main {
   transform: scale(1.02);
 
 }
+
 
