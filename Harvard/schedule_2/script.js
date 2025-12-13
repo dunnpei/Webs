@@ -146,7 +146,9 @@ function renderMonthlyPlans() {
 }
 
 function highlightToday() {
-    const today = new Date().toISOString().split('T')[0];
+    // 使用台北時區格式化日期為 YYYY-MM-DD
+    const todayFormatter = new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Taipei' });
+    const today = todayFormatter.format(new Date());
     const todayElement = document.querySelector(`.calendar-day[data-date="${today}"]`);
     if (todayElement) {
         todayElement.classList.add('today');
