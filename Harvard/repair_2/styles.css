@@ -40,7 +40,7 @@ body {
 }
 
 header {
-  background: #2c3e50; /* 深底色 */
+  background: #333333; /* 深底色 */
   color: #ecf0f1; /* 白字 */
   padding: var(--spacing-md);
   box-shadow: var(--shadow-medium);
@@ -349,3 +349,4 @@ footer {
   transform: scale(1.02);
 
 }
+
