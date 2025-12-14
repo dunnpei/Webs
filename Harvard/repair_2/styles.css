@@ -92,6 +92,14 @@ main {
   margin: 0 auto;
 }
 
+footer {
+    text-align: center;
+    padding: 1rem;
+    background-color: #333;
+    color: white;
+    margin-top: 1rem;
+}
+
 .loading {
   text-align: center;
   font-size: 1.1rem;
@@ -341,18 +349,3 @@ main {
   transform: scale(1.02);
 
 }
-
-footer {
-    text-align: center;
-    padding: 1rem;
-    background-color: #333;
-    color: white;
-    margin-top: 1rem;
-}
-
-
-
-
-
-
-
