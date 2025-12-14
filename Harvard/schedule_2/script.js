@@ -145,6 +145,14 @@ function renderMonthlyPlans() {
     ).join('');
 }
 
+function setFooterYear() {
+    const year = new Date().getFullYear();
+    const yearEl = document.getElementById('year');
+    if (yearEl) {
+        yearEl.textContent = year;
+    }
+}
+
 function highlightToday() {
     // 使用台北時區格式化日期為 YYYY-MM-DD
     const todayFormatter = new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Taipei' });
@@ -173,4 +181,5 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('prevMonth').addEventListener('click', () => changeMonth('prev'));
     document.getElementById('nextMonth').addEventListener('click', () => changeMonth('next'));
     loadMaintenancePlans();
+    setFooterYear();
 });
