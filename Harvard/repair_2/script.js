@@ -302,9 +302,10 @@ function initApp() {
   dataModule.load().then(success => {
     if (success) {
       renderModule.renderYears();
-      selectedYear = new Date().getFullYear().toString(); // 預設當前年度 (2025)
-      yearSelector.value = selectedYear; // 自動選中下拉選單
-      renderModule.renderPlans(selectedYear, currentFilter); // 初始渲染當前年度
+      // 使用所有年度作為預設顯示，以避免特定年份無資料時顯示空白
+      selectedYear = '';
+      yearSelector.value = ''; // 選擇 '所有年度...'
+      renderModule.renderPlans(selectedYear, currentFilter); // 初始渲染為所有年度
       eventModule.bindGlobalEvents();
     }
   });
