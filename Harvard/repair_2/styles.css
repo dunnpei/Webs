@@ -299,6 +299,7 @@ footer {
     background-color: #333;
     color: white;
     margin-top: 1rem;
+    font-size: 1.5rem;
 }
 
 /* 響應式設計 */
@@ -403,4 +404,5 @@ footer {
 
 .photos img:hover {
   transform: scale(1.02);
+
 }
