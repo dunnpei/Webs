@@ -10,11 +10,6 @@
     <header role="banner">
         <h1>大學城哈佛-修繕紀錄</h1>
         <div class="header-controls">
-            <select id="yearSelector" aria-label="選擇年度">
-                <option value="">選擇年度...</option>
-                <!-- 由 JavaScript 動態填充年度選項 -->
-            </select>
-            <input type="text" id="searchInput" placeholder="搜尋計畫 (標題、日期或狀態)..." aria-label="搜尋修繕計畫">
         </div>
     </header>
     <main id="mainContent" role="main" aria-live="polite">
@@ -26,15 +21,9 @@
             <!-- 由 JavaScript 動態渲染年度分組與計畫卡片 -->
         </section>
     </main>
-    <footer>
-        <h2>&copy; <span id="currentYear"></span> 高雄大學城哈佛大樓</h2>
+    <footer role="contentinfo">
+        <p>&copy; <span id="currentYear"></span> 大學城哈佛修繕紀錄. All rights reserved.</p>
     </footer>
     <script src="script.js"></script>
 </body>
-
 </html>
-
-
-
-
-
