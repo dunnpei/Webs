@@ -40,12 +40,13 @@ body {
 }
 
 header {
-  background: #333333; /* 深底色 */
+  background: #2c3e50; /* 深底色 */
   color: #ecf0f1; /* 白字 */
   padding: var(--spacing-md);
   box-shadow: var(--shadow-medium);
   display: flex;
-  flex-direction: column;
+  flex-direction: column; /* 預設為 column，以便在中小型螢幕上堆疊 */
+  align-items: center; /* 預設讓 header 內的項目置中 */
   gap: var(--spacing-sm);
 }
 
@@ -56,16 +57,53 @@ header h1 {
   text-align: center;
 }
 
+/* header-controls 的樣式，包含按鈕、選擇器和搜尋框 */
 .header-controls {
   display: flex;
-  flex-direction: column;
+  flex-direction: column; /* 預設為 column 堆疊 */
+  align-items: center; /* 預設置中 */
   gap: var(--spacing-sm);
-  max-width: 600px;
-  margin: 0 auto;
+  width: 100%; /* 填滿 header 的寬度 */
+  max-width: 600px; /* 限制最大寬度 */
+  margin: var(--spacing-sm) auto; /* 上下有間距，左右自動，實現置中 */
+  flex-wrap: wrap; /* 允許換行 */
+  justify-content: center; /* 確保內容在 flex 容器內置中 */
 }
 
+/* 篩選按鈕的容器 */
+.filter-buttons {
+  display: flex;
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-sm); /* 與 yearSelector 和 searchInput 之間增加一點間距 */
+  justify-content: center; /* 使按鈕本身置中 */
+  flex-wrap: wrap; /* 允許按鈕換行 */
+}
+
+.filter-buttons button {
+  background-color: var(--primary-color); /* 使用主色調 */
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px; /* 與您提供的範例一致 */
+  cursor: pointer;
+  transition: all 0.2s ease; /* 加入過渡效果 */
+  font-size: 0.9rem; /* 調整字體大小 */
+  box-shadow: var(--shadow-light); /* 加入輕微陰影 */
+}
+
+.filter-buttons button:hover {
+  background-color: #0056b3; /* 稍微深一點的藍色，與範例一致 */
+  transform: scale(1.02); /* 加入縮放效果 */
+  box-shadow: var(--shadow-medium); /* 加入更明顯的陰影 */
+}
+
+/* 調整 yearSelector 和 searchInput 的置中 */
 #yearSelector,
 #searchInput {
+  margin: 0 auto; /* 確保在 flex 容器中也能居中 */
+  display: block; /* 讓它們獨立佔一行 */
+  width: 100%; /* 填滿可用空間 */
+  max-width: 300px; /* 設定最大寬度 */
   padding: var(--spacing-sm);
   border: 1px solid #ddd;
   border-radius: var(--border-radius);
@@ -90,14 +128,6 @@ main {
   padding: var(--spacing-md);
   max-width: 1200px;
   margin: 0 auto;
-}
-
-footer {
-    text-align: center;
-    padding: 1rem;
-    background-color: #333;
-    color: white;
-    margin-top: 1rem;
 }
 
 .loading {
@@ -172,17 +202,15 @@ footer {
 }
 
 .plan-card.visited {
-  /* opacity: 0.8; */
   background: #f8f9fa;
 }
 
 .plan-card.visited::after {
-  content: '《展開詳細》';
+  content: '點擊詳細';
   position: absolute;
   top: var(--spacing-sm);
   right: var(--spacing-sm);
-  /* color: var(--success-color); */
-  color: #007BFF;
+  color: #007bff;
   font-size: 0.8rem;
   font-weight: normal;
 }
@@ -265,16 +293,30 @@ footer {
   outline: 2px solid var(--primary-color);
 }
 
+footer {
+    text-align: center;
+    padding: 1rem;
+    background-color: #333;
+    color: white;
+    margin-top: 1rem;
+}
+
 /* 響應式設計 */
 @media (min-width: 1024px) {
   .header-controls {
     flex-direction: row;
     justify-content: center;
+    align-items: center;
+    gap: var(--spacing-md);
+    max-width: 800px;
+    margin: var(--spacing-sm) auto;
+    flex-wrap: wrap;
   }
 
   #searchInput {
-    flex: 1;
-    max-width: 300px;
+    flex: none; 
+    max-width: 300px; 
+    margin: 0 auto; 
   }
 
   .plans-grid {
@@ -287,17 +329,31 @@ footer {
 }
 
 @media (max-width: 768px) {
+  header {
+    flex-direction: column; /* 確保 header 內元素堆疊 */
+    align-items: center; /* 居中 */
+  }
   header h1 {
     font-size: 2rem;
   }
 
   .header-controls {
-    padding: 0 var(--spacing-sm);
+    flex-direction: column; /* 在小螢幕上堆疊 */
+    align-items: center; /* 居中 */
+    gap: var(--spacing-sm);
+    margin: var(--spacing-sm) auto;
   }
-
+  
+  /* 確保 filter-buttons 在小螢幕上也是置中堆疊 */
+  .filter-buttons {
+    justify-content: center; 
+    margin-bottom: var(--spacing-sm); /* 重新加上底部間距 */
+  }
+  
   #yearSelector,
   #searchInput {
     font-size: 16px; /* 防止 iOS 縮放 */
+    max-width: 100%; /* 在小螢幕上填滿寬度 */
   }
 }
 
@@ -347,6 +403,4 @@ footer {
 
 .photos img:hover {
   transform: scale(1.02);
-
 }
-

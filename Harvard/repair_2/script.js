@@ -37,6 +37,7 @@ function initApp() {
         // 載入已瀏覽狀態
         this.loadVisited();
         loading.style.display = 'none';
+        console.log('Loaded allData:', allData); // <-- 加入 console log 輸出 allData
         return true;
       } catch (err) {
         loading.style.display = 'none';
@@ -95,19 +96,34 @@ function initApp() {
   const renderModule = {
     renderYears() {
       yearSelector.innerHTML = '<option value="">所有年度...</option>';
-      allData.forEach(yearObj => {
-        const option = document.createElement('option');
-        option.value = yearObj.year;
-        option.textContent = `${yearObj.year} 年`;
-        yearSelector.appendChild(option);
-      });
+      // 檢查 allData 是否為空，避免在空陣列上迭代
+      if (allData && allData.length > 0) {
+        allData.forEach(yearObj => {
+          const option = document.createElement('option');
+          option.value = yearObj.year;
+          option.textContent = `${yearObj.year} 年`;
+          yearSelector.appendChild(option);
+        });
+      }
     },
 
     renderPlans(yearFilter = '', searchFilter = '') {
       plansSection.innerHTML = '';
-      const filteredData = allData.filter(yearObj => !yearFilter || yearObj.year.toString() === yearFilter);
       
-      filteredData.forEach(yearObj => {
+      // 檢查 allData 是否為空
+      if (!allData || allData.length === 0) {
+        plansSection.innerHTML = '<p style="text-align: center; color: #666;">無修繕紀錄資料。</p>';
+        return;
+      }
+
+      const filteredDataByYear = allData.filter(yearObj => !yearFilter || yearObj.year.toString() === yearFilter);
+      
+      if (filteredDataByYear.length === 0 && yearFilter) { 
+        plansSection.innerHTML = '<p style="text-align: center; color: #666;">無此年度的修繕紀錄。</p>';
+        return;
+      }
+      
+      filteredDataByYear.forEach(yearObj => {
         const yearGroup = document.createElement('div');
         yearGroup.className = 'year-group';
         const h2 = document.createElement('h2');
@@ -118,7 +134,7 @@ function initApp() {
         const grid = document.createElement('div');
         grid.className = 'plans-grid';
         let sortedPlans = utils.sortPlans(yearObj.plans);
-        const filteredPlansForSearch = utils.filterPlans(sortedPlans, searchFilter); // 僅由搜尋器過濾
+        const filteredPlansForSearch = utils.filterPlans(sortedPlans, searchFilter); 
         
         if (filteredPlansForSearch.length === 0) {
           const emptyMsg = document.createElement('p');
@@ -137,13 +153,9 @@ function initApp() {
         plansSection.appendChild(yearGroup);
       });
 
-      if (filteredData.length === 0) {
-        const emptySection = document.createElement('p');
-        emptySection.textContent = '無修繕紀錄資料。';
-        emptySection.style.textAlign = 'center';
-        emptySection.style.color = '#666';
-        plansSection.appendChild(emptySection);
-      }
+      // 移除先前獨立的 allData.length 檢查，因為上面的邏輯已涵蓋
+      // if (filteredDataByYear.length === 0 && allData.length > 0) { ... }
+      // else if (allData.length === 0) { ... }
 
       eventModule.bindPlanEvents();
     },
@@ -153,10 +165,8 @@ function initApp() {
         const currentYear = new Date().getFullYear().toString();
         let currentPlans = [];
 
-        // 根據 filterType 準備要顯示的 plan 列表
         switch (filterType) {
             case 'this-year':
-                // 確保 plan.date 是 YYYY-MM-DD 格式，以便直接比較年份
                 currentPlans = plans.filter(plan => plan.date.startsWith(currentYear));
                 break;
             case 'completed':
@@ -165,9 +175,10 @@ function initApp() {
             case 'incomplete':
                 currentPlans = plans.filter(plan => plan.status !== 'Completed');
                 break;
-            default: // 'all' or any other unexpected type
-                // If filterType is 'all', we should have already returned from applyFilter
-                // If it's an unexpected type, default to showing all provided plans
+            case 'all': 
+                renderModule.renderPlans(selectedYear, currentFilter);
+                return; 
+            default: 
                 currentPlans = plans; 
         }
 
@@ -180,7 +191,6 @@ function initApp() {
             return;
         }
 
-        // 創建一個代表篩選結果的標題
         const filterHeading = document.createElement('h2');
         filterHeading.id = `filter-${filterType}`;
         let headingText = '';
@@ -188,9 +198,13 @@ function initApp() {
             case 'this-year': headingText = `${currentYear} 年`; break;
             case 'completed': headingText = '已完成'; break;
             case 'incomplete': headingText = '未完成'; break;
-            default: headingText = '篩選結果'; // Fallback for 'all' or others
+            default: headingText = '篩選結果'; 
         }
-        filterHeading.textContent = `${headingText} 修繕紀錄`;
+        if (headingText) {
+             filterHeading.textContent = `${headingText} 修繕紀錄`;
+        } else {
+             filterHeading.textContent = '修繕紀錄';
+        }
         
         const yearGroup = document.createElement('div');
         yearGroup.className = 'year-group';
@@ -217,7 +231,7 @@ function initApp() {
         card.className = `plan-card ${plan.status.toLowerCase().replace(' ', '-')}${plan.visited ? ' visited' : ''}`;
         card.dataset.id = plan.id;
         card.setAttribute('aria-expanded', 'false');
-        card.tabIndex = 0; // 支援鍵盤焦點
+        card.tabIndex = 0; 
 
         const summary = document.createElement('summary');
         summary.id = summaryId;
@@ -246,16 +260,7 @@ function initApp() {
         if (plan.amount !== undefined) {
           detailsContent += `<p class="amount">修繕金額：NT$ ${plan.amount.toLocaleString()}</p>`;
         }
-        /**
-        // 動態顯示其他欄位
-        Object.entries(plan).forEach(([key, value]) => {
-          if (!['id', 'date', 'title', 'status', 'summary', 'details', 'amount', 'visited'].includes(key) && value !== undefined) {
-            detailsContent += `<p><strong>${key}：</strong>${typeof value === 'object' ? JSON.stringify(value) : value}</p>`;
-          }
-        });
-        */
 
-        // 照片顯示
         if (plan.photos && plan.photos.length > 0) {
           detailsContent += '<div class="photos">';
           plan.photos.forEach(photo => {
@@ -282,7 +287,6 @@ function initApp() {
       cards.forEach(card => {
         const summary = card.querySelector('summary');
 
-        // 點擊 summary：防止原生行為，統一自訂展開
         if (summary) {
           summary.addEventListener('click', (e) => {
             e.preventDefault();
@@ -291,13 +295,11 @@ function initApp() {
           });
         }
 
-        // 點擊卡片其他區域：展開
         card.addEventListener('click', (e) => {
-          if (e.target.closest('summary')) return; // 由 summary 事件處理
+          if (e.target.closest('summary')) return; 
           toggleCard(card);
         });
 
-        // 共用展開函數
         function toggleCard(card) {
           const isExpanded = card.hasAttribute('open');
           if (isExpanded) {
@@ -306,13 +308,11 @@ function initApp() {
           } else {
             card.setAttribute('open', '');
             card.setAttribute('aria-expanded', 'true');
-            // 標記已瀏覽
             dataModule.markVisited(card.dataset.id);
             card.classList.add('visited');
           }
         }
 
-        // 鍵盤操作
         card.addEventListener('keydown', (e) => {
           switch (e.key) {
             case 'Enter':
@@ -324,39 +324,33 @@ function initApp() {
               if (card.hasAttribute('open')) {
                 card.removeAttribute('open');
                 card.setAttribute('aria-expanded', 'false');
-                card.blur(); // 移開焦點
+                card.blur(); 
               }
               break;
           }
         });
 
-        // Focus 樣式 (無障礙)
         card.addEventListener('focus', () => card.classList.add('focus-visible'));
         card.addEventListener('blur', () => card.classList.remove('focus-visible'));
       });
     },
 
     bindGlobalEvents() {
-      // 年份切換
       yearSelector.addEventListener('change', (e) => {
         selectedYear = e.target.value;
-        // 當年份切換時，清除搜尋條件，並重新渲染
         searchInput.value = '';
         currentFilter = '';
         renderModule.renderPlans(selectedYear, currentFilter);
       });
 
-      // 搜尋
       searchInput.addEventListener('input', (e) => {
         currentFilter = e.target.value.toLowerCase();
         renderModule.renderPlans(selectedYear, currentFilter);
       });
 
-      // 重新載入
       retryBtn.addEventListener('click', () => {
         dataModule.load().then(success => {
           if (success) {
-            // 重新載入後，重置所有篩選和搜尋
             selectedYear = '';
             yearSelector.value = '';
             currentFilter = '';
@@ -366,12 +360,10 @@ function initApp() {
         });
       });
 
-      // --- 新增按鈕篩選邏輯 ---
       const filterButtons = document.querySelectorAll('.filter-buttons button');
       filterButtons.forEach(button => {
         button.addEventListener('click', () => {
           const filterType = button.dataset.filter;
-          // 清除 yearSelector 和 searchInput 以確保篩選的純粹性
           yearSelector.value = '';
           searchInput.value = '';
           selectedYear = '';
@@ -382,9 +374,8 @@ function initApp() {
     }
   };
 
-  // --- 篩選邏輯 ---
   function applyFilter(filterType) {
-    let filteredPlans = [];
+    let filteredPlansForButton = []; 
     const currentYear = new Date().getFullYear().toString();
 
     allData.forEach(yearObj => {
@@ -392,41 +383,33 @@ function initApp() {
 
       switch (filterType) {
         case 'all':
-          // "全年度" 應顯示所有資料，但不清除其他篩選器，此處由 renderPlans 處理
-          // 實際上，在按鈕點擊時，我們已經清除了 selectedYear 和 currentFilter，
-          // 所以這裡只需調用 renderPlans 即可。
           renderModule.renderPlans(selectedYear, currentFilter);
-          return; // 提前退出，由 renderPlans 處理
+          return; 
         case 'this-year':
-          // 確保 plan.date 是 YYYY-MM-DD 格式，以便直接比較年份
-          filteredPlans = filteredPlans.concat(plansToConsider.filter(plan => plan.date.startsWith(currentYear)));
+          filteredPlansForButton = filteredPlansForButton.concat(plansToConsider.filter(plan => plan.date.startsWith(currentYear)));
           break;
         case 'completed':
-          filteredPlans = filteredPlans.concat(plansToConsider.filter(plan => plan.status === 'Completed'));
+          filteredPlansForButton = filteredPlansForButton.concat(plansToConsider.filter(plan => plan.status === 'Completed'));
           break;
         case 'incomplete':
-          filteredPlans = filteredPlans.concat(plansToConsider.filter(plan => plan.status !== 'Completed'));
+          filteredPlansForButton = filteredPlansForButton.concat(plansToConsider.filter(plan => plan.status !== 'Completed'));
           break;
       }
     });
 
-    // 根據篩選結果更新 plansSection
-    renderModule.renderFilteredPlans(filteredPlans, filterType);
+    renderModule.renderFilteredPlans(filteredPlansForButton, filterType);
   }
 
-  // 初始化
   dataModule.load().then(success => {
     if (success) {
       renderModule.renderYears();
-      // 使用所有年度作為預設顯示，以避免特定年份無資料時顯示空白
       selectedYear = '';
-      yearSelector.value = ''; // 選擇 '所有年度...'
-      renderModule.renderPlans(selectedYear, currentFilter); // 初始渲染為所有年度
+      yearSelector.value = ''; 
+      renderModule.renderPlans(selectedYear, currentFilter); 
       eventModule.bindGlobalEvents();
     }
   });
 
-  // 動態設定版權年份
   const currentYearSpan = document.getElementById('currentYear');
   if (currentYearSpan) {
     currentYearSpan.textContent = new Date().getFullYear();
