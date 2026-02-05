@@ -1,0 +1,5 @@
+{
+  "name": "Web Design Vendor Directory",
+  "description": "A responsive directory for web design agencies using Google Sheets as a data source concept. Features filtering, search, and detailed card views.",
+  "requestFramePermissions": []
+}
