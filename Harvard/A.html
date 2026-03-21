@@ -1,46 +1,85 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-TW">
 <head>
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>大學城哈佛-AI助理 v1</title>
+  <title>大學城哈佛-AI助理 V2</title>
   <style>
-    html, body { margin:0; padding:0; height:100%; overflow:hidden; }
-    iframe { border:none; width:100%; height:100vh; }  /* 改用 100vh 比較穩 */
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow: hidden;
+    }
+    #chat-iframe {
+      border: none;
+      width: 100%;
+      height: 100vh;  /* 先用 100vh */
+    }
   </style>
 </head>
 <body>
+  <iframe 
+    id="chat-iframe"
+    allow="microphone" 
+    frameborder="0" 
+    src="https://udify.app/chat/mfrY8f637LVHLCMu">
+  </iframe>
+
   <script>
- window.difyChatbotConfig = {
-  token: 'mfrY8f637LVHLCMu',
-  inputs: {
-    // You can define the inputs from the Start node here
-    // key is the variable name
-    // e.g.
-    // name: "NAME"
-  },
-  systemVariables: {
-    // user_id: 'YOU CAN DEFINE USER ID HERE',
-    // conversation_id: 'YOU CAN DEFINE CONVERSATION ID HERE, IT MUST BE A VALID UUID',
-  },
-  userVariables: {
-    // avatar_url: 'YOU CAN DEFINE USER AVATAR URL HERE',
-    // name: 'YOU CAN DEFINE USER NAME HERE',
-  },
- }
-</script>
-<script
- src="https://udify.app/embed.min.js"
- id="mfrY8f637LVHLCMu"
- defer>
-</script>
-<style>
-  #dify-chatbot-bubble-button {
-    background-color: #1C64F2 !important;
-  }
-  #dify-chatbot-bubble-window {
-    width: 24rem !important;
-    height: 40rem !important;
-  }
-</style>
+    const iframe = document.getElementById('chat-iframe');
+
+    // 核心：用 visualViewport 動態調整 iframe 高度（鍵盤出來時自動縮小）
+    if ('visualViewport' in window) {
+      const adjustHeight = () => {
+        iframe.style.height = `${window.visualViewport.height}px`;
+        // 強制外層滾到最底（有時有幫助）
+        window.scrollTo(0, document.body.scrollHeight);
+      };
+
+      window.visualViewport.addEventListener('resize', adjustHeight);
+      window.visualViewport.addEventListener('scroll', adjustHeight);  // iOS 有時需要
+      // 初次載入也調整一次
+      adjustHeight();
+    } else {
+      // 後備：用 resize 事件
+      let prevHeight = window.innerHeight;
+      window.addEventListener('resize', () => {
+        const currHeight = window.innerHeight;
+        if (currHeight < prevHeight) {  // 鍵盤出來
+          iframe.style.height = `${currHeight}px`;
+        } else {
+          iframe.style.height = '100vh';
+        }
+        prevHeight = currHeight;
+      });
+    }
+
+    // 加強版：嘗試在 iframe 載入後，監聽內部 focus（如果同源或允許，否則 catch 錯誤）
+    iframe.addEventListener('load', () => {
+      try {
+        const iframeWin = iframe.contentWindow;
+        const iframeDoc = iframe.contentDocument || iframeWin.document;
+
+        const handleFocus = (e) => {
+          if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') {
+            setTimeout(() => {
+              // 內部試圖 scrollIntoView
+              e.target.scrollIntoView({ behavior: 'smooth', block: 'end' });
+              // 或更強制：滾到聊天容器最底
+              const chatContainer = iframeDoc.querySelector('.chat-messages, .conversation, [class*="message-list"]');  // 猜類名
+              if (chatContainer) {
+                chatContainer.scrollTop = chatContainer.scrollHeight;
+              }
+            }, 200);  // 延遲等鍵盤完全出來
+          }
+        };
+
+        iframeDoc.addEventListener('focusin', handleFocus, true);  // capture phase
+      } catch (err) {
+        console.warn('無法直接存取 iframe 內部（跨域正常）', err);
+      }
+    });
+  </script>
 </body>
 </html>
